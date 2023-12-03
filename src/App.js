@@ -41,7 +41,7 @@ function reducer(state, action) {
     case "withdraw":
       return {
         ...state,
-        balance: state.balance - 50,
+        balance: state.balance <= 0 ? state.balance : state.balance - 50,
       };
     case "requestLoan":
       return {
@@ -59,6 +59,7 @@ function reducer(state, action) {
     case "closeAccount":
       return {
         ...state,
+        isActive: state.balance === 0 && state.loan === 0 && !state.isActive,
       };
     default:
       throw new Error("Invalid action type");
