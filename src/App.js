@@ -36,18 +36,20 @@ function reducer(state, action) {
     case "deposit":
       return {
         ...state,
-        balance: state.balance + 150,
+        balance: state.balance + action.payload,
       };
     case "withdraw":
       return {
         ...state,
-        balance: state.balance <= 0 ? state.balance : state.balance - 50,
+        balance:
+          state.balance <= 0 ? state.balance : state.balance - action.payload,
       };
     case "requestLoan":
       return {
         ...state,
-        balance: state.loan === 5000 ? state.balance : state.balance + 5000,
-        loan: state.loan === 5000 ? state.loan : state.loan + 5000,
+        balance:
+          state.loan === 5000 ? state.balance : state.balance + action.payload,
+        loan: state.loan === 5000 ? state.loan : state.loan + action.payload,
       };
     case "payLoan":
       return {
@@ -90,7 +92,7 @@ export default function App() {
       <p>
         <button
           onClick={() => {
-            dispatch({ type: "deposit" });
+            dispatch({ type: "deposit", payload: 150 });
           }}
           disabled={isActive}
         >
@@ -100,7 +102,7 @@ export default function App() {
       <p>
         <button
           onClick={() => {
-            dispatch({ type: "withdraw" });
+            dispatch({ type: "withdraw", payload: 50 });
           }}
           disabled={isActive}
         >
@@ -110,7 +112,7 @@ export default function App() {
       <p>
         <button
           onClick={() => {
-            dispatch({ type: "requestLoan" });
+            dispatch({ type: "requestLoan", payload: 5000 });
           }}
           disabled={isActive}
         >
